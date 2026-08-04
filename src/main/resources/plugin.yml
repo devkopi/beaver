@@ -1,0 +1,4 @@
+name: Beaver
+version: '${project.version}'
+main: dev.ccoding.beaver.Beaver
+authors: [ccoding]
