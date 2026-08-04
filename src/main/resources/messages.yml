@@ -1,0 +1,16 @@
+prefix: "&6&lBeaver &7»"
+
+no-permission: "&cYou don't have permission."
+
+plugin:
+  reloaded: "&aConfiguration reloaded successfully."
+
+maintenance:
+  enabled: "&aMaintenance mode enabled."
+  disabled: "&cMaintenance mode disabled."
+
+  status:
+    enabled: "&aEnabled"
+    disabled: "&cDisabled"
+
+  kick-message: "&cThe server is currently under maintenance."

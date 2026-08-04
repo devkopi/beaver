@@ -2,3 +2,21 @@ name: Beaver
 version: '${project.version}'
 main: dev.ccoding.beaver.Beaver
 authors: [ccoding]
+
+commands:
+  beaver:
+    description: Shows Beaver Information.
+    aliases:
+      - bv
+  maintenance:
+    description: Main Beaver command.
+    aliases:
+      - mt
+
+permissions:
+  beaver.admin:
+    description: Allows administration of Beaver maintenance system.
+    default: op
+  beaver.bypass:
+    description: Allows joining the server during maintenance.
+    default: op
