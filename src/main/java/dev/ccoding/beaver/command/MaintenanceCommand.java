@@ -69,7 +69,7 @@ public final class MaintenanceCommand implements TabExecutor {
                 break;
 
             case "off":
-                maintenanceService.enable();
+                maintenanceService.disable();
 
                 sender.sendMessage(messageService.get("maintenance.disabled"));
                 break;
@@ -80,7 +80,7 @@ public final class MaintenanceCommand implements TabExecutor {
                         ? messageService.getRaw("maintenance.status.enabled")
                         : messageService.getRaw("maintenance.status.disabled");
 
-                sender.sendMessage(messageService.getRaw("prefix") + " &7Status: " + status);
+                sender.sendMessage(messageService.getRaw("prefix") + " Status: " + status);
                 break;
 
             default:

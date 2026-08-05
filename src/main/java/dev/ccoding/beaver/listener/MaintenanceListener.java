@@ -2,6 +2,7 @@ package dev.ccoding.beaver.listener;
 
 import dev.ccoding.beaver.maintenance.MaintenanceState;
 import dev.ccoding.beaver.permission.Permissions;
+import dev.ccoding.beaver.services.MaintenanceService;
 import dev.ccoding.beaver.services.MessageService;
 import dev.ccoding.beaver.utils.Colors;
 
@@ -11,11 +12,11 @@ import org.bukkit.event.player.PlayerLoginEvent;
 
 // Controla el acceso a jugadores cuando el sistema de mantenimiento está activo
 public final class MaintenanceListener implements Listener {
-    private final MaintenanceState maintenanceState;
+    private final MaintenanceService maintenanceService;
     private final MessageService messageService;
 
-    public MaintenanceListener(MaintenanceState maintenanceState, MessageService messageService) {
-        this.maintenanceState = maintenanceState;
+    public MaintenanceListener(MaintenanceService maintenanceService, MessageService messageService) {
+        this.maintenanceService = maintenanceService;
         this.messageService = messageService;
     }
 
@@ -28,7 +29,7 @@ public final class MaintenanceListener implements Listener {
      */
     @EventHandler
     public void onPlayerLogin(PlayerLoginEvent event) {
-        if (!maintenanceState.isEnabled()) {
+        if (!maintenanceService.isEnabled()) {
             return;
         }
 

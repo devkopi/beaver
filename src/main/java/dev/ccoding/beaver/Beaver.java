@@ -2,11 +2,13 @@ package dev.ccoding.beaver;
 
 import dev.ccoding.beaver.command.BeaverCommand;
 import dev.ccoding.beaver.command.MaintenanceCommand;
+import dev.ccoding.beaver.listener.ServerListListener;
 import dev.ccoding.beaver.maintenance.MaintenanceState;
 import dev.ccoding.beaver.listener.MaintenanceListener;
 import dev.ccoding.beaver.services.MaintenanceService;
 import dev.ccoding.beaver.services.MessageService;
 
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Beaver extends JavaPlugin {
@@ -16,8 +18,8 @@ public final class Beaver extends JavaPlugin {
         saveDefaultConfig();
 
         maintenanceState = new MaintenanceState();
-        maintenanceService = new MaintenanceService(maintenanceState);
         messageService = new MessageService(this);
+        maintenanceService = new MaintenanceService(this, maintenanceState, messageService);
 
         registerCommands();
         registerListeners();
@@ -38,7 +40,12 @@ public final class Beaver extends JavaPlugin {
 
     // Registro de eventos
     private void registerListeners() {
-        getServer().getPluginManager().registerEvents(new MaintenanceListener(maintenanceState, messageService), this);
+        PluginManager pluginManager = getServer().getPluginManager();
+
+        pluginManager.registerEvents(new MaintenanceListener(maintenanceService, messageService), this);
+        pluginManager.registerEvents(new ServerListListener(this, maintenanceService), this);
+
+        //getServer().getPluginManager().registerEvents(new MaintenanceListener(maintenanceState, messageService), this);
     }
 
     // Recargo todos los archivos de configuración del plugin

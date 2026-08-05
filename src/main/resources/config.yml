@@ -2,3 +2,14 @@
 # Documentation: https://github.com/ccoding/Beaver
 
 debug-mode: false
+
+motd:
+  enabled: true
+
+  normal:
+    - "&6&lBeaver &fMotd Normal"
+    - "&7Thanks for using the plugin!"
+
+  maintenance:
+    - "&6&lBeaver &7» &cServer under maintenance"
+    - "&7Please come back later."
