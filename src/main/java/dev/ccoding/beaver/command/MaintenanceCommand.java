@@ -3,6 +3,7 @@ package dev.ccoding.beaver.command;
 
 import dev.ccoding.beaver.permission.Permissions;
 import dev.ccoding.beaver.scheduler.MaintenanceScheduler;
+import dev.ccoding.beaver.utils.DiscordWebhook;
 import dev.ccoding.beaver.utils.TimeParser;
 import dev.ccoding.beaver.services.MaintenanceService;
 import dev.ccoding.beaver.services.MessageService;
@@ -70,8 +71,13 @@ public final class MaintenanceCommand implements TabExecutor {
 
             case "on":
                 maintenanceService.enable();
-
                 sender.sendMessage(messageService.get("maintenance.enabled"));
+                DiscordWebhook.sendAlert(
+                        messageService.getPlugin().getConfig(),
+                        messageService,
+                        "maintenance.discord.enabled-alert",
+                        null
+                );
                 break;
 
             case "off":
@@ -105,6 +111,14 @@ public final class MaintenanceCommand implements TabExecutor {
                 maintenanceScheduler.schedule(seconds);
                 sender.sendMessage(
                         Colors.color("&6&lBeaver &7» &aMaintenance scheduled in &f" + args[1] + "&a.")
+                );
+
+                // Envía la notificación programada a Discord utilizando el bloque "maintenance.discord.schedule"
+                DiscordWebhook.sendAlert(
+                        messageService.getPlugin().getConfig(),
+                        messageService,
+                        "maintenance.discord.schedule",
+                        args[1]
                 );
                 break;
 

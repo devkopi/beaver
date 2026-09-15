@@ -40,6 +40,14 @@ public final class MessageService {
         return Colors.color(message);
     }
 
+    public Beaver getPlugin() {
+        return plugin;
+    }
+
+    public FileConfiguration getConfig() {
+        return messages;
+    }
+
     // Recargo el archivo messages.yml
     public void reload() {
         loadMessages();

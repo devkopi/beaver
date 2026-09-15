@@ -1,5 +1,13 @@
+#################################################################
+#                                                               #
+#                        BEAVER PLUGIN                          #
+#                    Developed by ccoding                       #
+#          GitHub: https://github.com/devkopi                   #
+#                                                               #
+#################################################################
+
 # Beaver configuration file
-# Documentation: https://github.com/ccoding/Beaver
+# Documentation: https://github.com/devkopi/Beaver
 
 debug-mode: false
 
@@ -13,3 +21,8 @@ motd:
   maintenance:
     - "&6&lBeaver &7» &cServer under maintenance"
     - "&7Please come back later."
+
+discord:
+  enabled: true
+  webhook-url: "LINK_WEBHOOK_HERE"
+  send-embed: true
