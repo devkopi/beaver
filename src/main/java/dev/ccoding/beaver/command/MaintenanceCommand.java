@@ -2,6 +2,9 @@ package dev.ccoding.beaver.command;
 
 
 import dev.ccoding.beaver.permission.Permissions;
+import dev.ccoding.beaver.scheduler.MaintenanceScheduler;
+import dev.ccoding.beaver.utils.DiscordWebhook;
+import dev.ccoding.beaver.utils.TimeParser;
 import dev.ccoding.beaver.services.MaintenanceService;
 import dev.ccoding.beaver.services.MessageService;
 
@@ -10,6 +13,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 
+import java.sql.Time;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -18,12 +22,14 @@ public final class MaintenanceCommand implements TabExecutor {
 
     private final MaintenanceService maintenanceService;
     private final MessageService messageService;
+    private final MaintenanceScheduler maintenanceScheduler;
     private static final String ADMIN_PERMISSION = Permissions.ADMIN;
 
     // Creo el comando utilizando el estado actual del mantenimiento
-    public MaintenanceCommand(MaintenanceService maintenanceService, MessageService messageService) {
+    public MaintenanceCommand(MaintenanceService maintenanceService, MessageService messageService, MaintenanceScheduler maintenanceScheduler) {
         this.maintenanceService = maintenanceService;
         this.messageService = messageService;
+        this.maintenanceScheduler = maintenanceScheduler;
     }
 
     @Override
@@ -40,7 +46,8 @@ public final class MaintenanceCommand implements TabExecutor {
             return Arrays.asList(
                     "on",
                     "off",
-                    "status"
+                    "status",
+                    "schedule"
             );
         }
         return Collections.emptyList();
@@ -64,8 +71,13 @@ public final class MaintenanceCommand implements TabExecutor {
 
             case "on":
                 maintenanceService.enable();
-
                 sender.sendMessage(messageService.get("maintenance.enabled"));
+                DiscordWebhook.sendAlert(
+                        messageService.getPlugin().getConfig(),
+                        messageService,
+                        "maintenance.discord.enabled-alert",
+                        null
+                );
                 break;
 
             case "off":
@@ -81,6 +93,33 @@ public final class MaintenanceCommand implements TabExecutor {
                         : messageService.getRaw("maintenance.status.disabled");
 
                 sender.sendMessage(messageService.getRaw("prefix") + " Status: " + status);
+                break;
+
+            case "schedule":
+                if (args.length < 2 ) {
+                    sender.sendMessage(Colors.color("&6&lBeaver &7» &cUsage: /maintenance schedule <time>"));
+                    break;
+                }
+
+                long seconds = TimeParser.parse(args[1]);
+
+                if (seconds <= 0) {
+                    sender.sendMessage(Colors.color("&6&lBeaver &7» &cInvalid time. Use formats like 30s, 15m or 2h."));
+                    break;
+                }
+
+                maintenanceScheduler.schedule(seconds);
+                sender.sendMessage(
+                        Colors.color("&6&lBeaver &7» &aMaintenance scheduled in &f" + args[1] + "&a.")
+                );
+
+                // Envía la notificación programada a Discord utilizando el bloque "maintenance.discord.schedule"
+                DiscordWebhook.sendAlert(
+                        messageService.getPlugin().getConfig(),
+                        messageService,
+                        "maintenance.discord.schedule",
+                        args[1]
+                );
                 break;
 
             default:

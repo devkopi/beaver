@@ -1,3 +1,11 @@
+#################################################################
+#                                                               #
+#                     BEAVER MESSAGES CONFIG                    #
+#                    Developed by ccoding                       #
+#          GitHub: https://github.com/devkopi                   #
+#                                                               #
+#################################################################
+
 prefix: "&6&lBeaver &7»"
 
 no-permission: "&cYou don't have permission."
@@ -14,3 +22,28 @@ maintenance:
     disabled: "&cDisabled"
 
   kick-message: "&cThe server is currently under maintenance."
+
+  discord:
+    # Webhook notification when maintenance is enabled instantly (/maintenance on)
+    enabled-alert:
+      content: "@everyone The server has entered maintenance mode!"
+      use-everyone: true
+      embed:
+        title: "🛡️ Maintenance Enabled"
+        description: "The server is temporarily closed for maintenance and optimization tasks."
+        color: "#FF5733"
+        image-url: "https://i.imgur.com/MCdjJow.png"
+        thumbnail-url: ""
+        footer: "Beaver Development • ccoding"
+
+    # Webhook notification when maintenance is scheduled (/maintenance schedule <time>)
+    schedule:
+      content: "@everyone The server will enter maintenance mode soon!"
+      use-everyone: true
+      embed:
+        title: "⏳ Maintenance Scheduled"
+        description: "The server will enter maintenance mode in **%time%**."
+        color: "#F1C40F"
+        image-url: "https://i.imgur.com/MCdjJow.png"
+        thumbnail-url: "https://i.imgur.com/XaiaWzP.png"
+        footer: "Beaver Development • ccoding"

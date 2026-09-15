@@ -1,5 +1,14 @@
+#################################################################
+#                                                               #
+#                        BEAVER PLUGIN                          #
+#                    Developed by ccoding                       #
+#          GitHub: https://github.com/devkopi                   #
+#                                                               #
+#################################################################
+
 # Beaver configuration file
-# Documentation: https://github.com/ccoding/Beaver
+# Documentation: https://github.com/devkopi/Beaver
+# Tip: You can use {center} at the beginning of any MOTD line to center it perfectly!
 
 debug-mode: false
 
@@ -7,9 +16,14 @@ motd:
   enabled: true
 
   normal:
-    - "&6&lBeaver &fMotd Normal"
-    - "&7Thanks for using the plugin!"
+    - "{center}&6&lBEAVER &8&l» &eNext-Gen Minecraft Server &f&o(v1.0.0)"
+    - "{center}&7Running smoothly • Use &b/maintenance &7to test!"
 
   maintenance:
-    - "&6&lBeaver &7» &cServer under maintenance"
-    - "&7Please come back later."
+    - "{center}&6&lBEAVER &8&l» &4&lSYSTEM UNDER MAINTENANCE"
+    - "{center}&cServer temporarily closed for optimizations. Back soon!"
+
+discord:
+  enabled: true
+  webhook-url: "LINK_WEBHOOK_HERE"
+  send-embed: true
