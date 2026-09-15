@@ -5,6 +5,7 @@ import dev.ccoding.beaver.command.MaintenanceCommand;
 import dev.ccoding.beaver.listener.ServerListListener;
 import dev.ccoding.beaver.maintenance.MaintenanceState;
 import dev.ccoding.beaver.listener.MaintenanceListener;
+import dev.ccoding.beaver.scheduler.MaintenanceScheduler;
 import dev.ccoding.beaver.services.MaintenanceService;
 import dev.ccoding.beaver.services.MessageService;
 
@@ -12,6 +13,10 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Beaver extends JavaPlugin {
+    private MaintenanceState maintenanceState;
+    private MaintenanceService maintenanceService;
+    private MessageService messageService;
+    private MaintenanceScheduler maintenanceScheduler;
 
     @Override
     public void onEnable() {
@@ -20,6 +25,7 @@ public final class Beaver extends JavaPlugin {
         maintenanceState = new MaintenanceState();
         messageService = new MessageService(this);
         maintenanceService = new MaintenanceService(this, maintenanceState, messageService);
+        maintenanceScheduler = new MaintenanceScheduler(this, maintenanceService, messageService);
 
         registerCommands();
         registerListeners();
@@ -34,7 +40,7 @@ public final class Beaver extends JavaPlugin {
 
     // Registro de comandos
     private void registerCommands(){
-        getCommand("maintenance").setExecutor(new MaintenanceCommand(maintenanceService, messageService));
+        getCommand("maintenance").setExecutor(new MaintenanceCommand(maintenanceService, messageService, maintenanceScheduler));
         getCommand("beaver").setExecutor(new BeaverCommand(this, messageService));
     }
 
@@ -54,10 +60,5 @@ public final class Beaver extends JavaPlugin {
         messageService.reload();
     }
 
-    // Estado actual del sistema de mantenimiento
-    private MaintenanceState maintenanceState;
 
-    private MaintenanceService maintenanceService;
-
-    private MessageService messageService;
 }
