@@ -42,7 +42,7 @@ Configure core settings, MOTD changes during maintenance, and Discord webhook in
 #                                                               #
 #                        BEAVER PLUGIN                          #
 #                    Developed by ccoding                       #
-#          GitHub: [https://github.com/devkopi](https://github.com/devkopi)                   #
+#          GitHub: https://github.com/devkopi                   #
 #                                                               #
 #################################################################
 
@@ -136,3 +136,14 @@ However, please keep the following guidelines in mind:
 
 * **Identity & Ownership:** Impersonating the developer, claiming authorship, or attempting to take ownership/rebrand the project as your own is strictly prohibited.
 * **Implementation Control:** Any proposed changes or features will remain suggestions and will not be officially implemented into the plugin until explicitly authorized and reviewed by the project author (`ccoding`).
+
+---
+[![Modrinth](https://img.shields.io/badge/Modrinth-Download-success?style=for-the-badge&logo=modrinth)](https://modrinth.com/plugin/beaver-maintenace)
+[![SpigotMC](https://img.shields.io/badge/SpigotMC-Download-red?style=for-the-badge&logo=spigotmc)](https://www.spigotmc.org/resources/beaver-advanced-server-maintenance-motd-system-%E3%80%8C1-17-1-21%E3%80%8D.138822/)
+
+## Getting Started
+
+1. **Requirements:** Make sure your Minecraft server is running on **Java 17 or higher** (compatible with Paper, Spigot, and modern forks).
+2. **Download:** Get the latest version from [Modrinth](https://modrinth.com/plugin/beaver-maintenace) or [SpigotMC](https://www.spigotmc.org/resources/beaver-advanced-server-maintenance-motd-system-%E3%80%8C1-17-1-21%E3%80%8D.138822/).
+3. **Installation:** Drop the `Beaver.jar` file into your server's `plugins/` directory.
+4. **Startup:** Start or reload your server to generate the default configuration files (`config.yml` and `messages.yml`).
